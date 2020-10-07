@@ -2,23 +2,65 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import {VictoryChart, VictoryBoxPlot} from 'victory';
+import {
+  LineChart,
+  BarChart,
+  PieChart,
+  ProgressChart,
+  ContributionGraph,
+  StackedBarChart
+} from "react-native-chart-kit";
 
 export default class App extends React.Component{
  
   render(){
     return(
-      <VictoryChart domainPadding={20}>
-        <VictoryBoxPlot
-          boxWidth={20}
-          data={[
-            { x: 1, y: [1, 2, 3, 5] },
-            { x: 2, y: [3, 2, 8, 10] },
-            { x: 3, y: [2, 8, 6, 5] },
-            { x: 4, y: [1, 3, 2, 9] }
-          ]}
+      <View>
+        <Text>Bezier Line Chart</Text>
+        <LineChart
+          data={{
+            labels: ["January", "February", "March", "April", "May", "June"],
+            datasets: [
+              {
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ]
+              }
+            ]
+          }}
+          width={420} // from react-native
+          height={220}
+          yAxisLabel="$"
+          yAxisSuffix="k"
+          yAxisInterval={1} // optional, defaults to 1
+          chartConfig={{
+            backgroundColor: "#e26a00",
+            backgroundGradientFrom: "#fb8c00",
+            backgroundGradientTo: "#ffa726",
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726"
+            }
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16
+          }}
         />
-      </VictoryChart>
+      </View>
     )
   }  
 }
